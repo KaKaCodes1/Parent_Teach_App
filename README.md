@@ -5,17 +5,17 @@
    educational journey by providing a range of tools and resources to support children’s at home.
 
 # Table of Contents
-   Built With
-   AUTHORS
-   Acknowledgments
+   -Built With
+   -AUTHORS
+   -Acknowledgments
 
 # Built With
- Flutter Framework
- Firebase
+ -Flutter Framework
+ -Firebase
 
  # Authors
- Nwokedike Linus
- Hamisi juma
+ -Nwokedike Linus
+ -Hamisi juma
  
 # Acknowledgememts
-   PLP
+   -PLP
