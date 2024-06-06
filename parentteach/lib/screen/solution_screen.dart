@@ -46,7 +46,7 @@ class _SolutionScreenState extends State<SolutionScreen> {
           // Foreground Content
           Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 if (_solution.isNotEmpty)
                   Padding(
