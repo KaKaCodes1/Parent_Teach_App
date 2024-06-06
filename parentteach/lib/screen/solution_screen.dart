@@ -26,23 +26,58 @@ class _SolutionScreenState extends State<SolutionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Solution')),
-      body: Column(
+      appBar: AppBar(
+        title: Text('Solution'),
+        titleTextStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      body: Stack(
         children: [
-          if (_solution.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(_solution),
+          // Background Image
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/background.jpg',
+              fit: BoxFit.cover,
             ),
-          ElevatedButton(
-            onPressed: () async {
-              imageFile = await Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ImageCaptureScreen()),
-              );
-              processImage();
-            },
-            child: Text('Get Solution'),
+          ),
+          // Foreground Content
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (_solution.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      _solution,
+                      style: TextStyle(
+                        color: Colors
+                            .white, // Ensure text is readable on the background
+                        fontSize: 16.0,
+                      ),
+                    ),
+                  ),
+                ElevatedButton(
+                  onPressed: () async {
+                    File? pickedImage = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ImageCaptureScreen()),
+                    );
+                    if (pickedImage != null) {
+                      setState(() {
+                        imageFile = pickedImage;
+                      });
+                      processImage();
+                    }
+                  },
+                  child: Text('Get Solution'),
+                ),
+              ],
+            ),
           ),
         ],
       ),
