@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:parentteach/screen/auth_screen.dart';
+//import 'package:parentteach/screen/auth_screen.dart';
+import 'package:parentteach/screen/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     //how long the screen will be displayed before going to another page
     Future.delayed(const Duration(seconds: 3), (){
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => AuthScreen())
+        MaterialPageRoute(builder: (_) => const OnboardingScreen())
       );
     });
   }
