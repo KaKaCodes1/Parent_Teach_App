@@ -24,7 +24,6 @@ class MyApp extends StatelessWidget {
     // ignore: prefer_const_constructors
     return MaterialApp(      
       debugShowCheckedModeBanner: false,
-      //home: AuthScreen(),
       //home: const OnboardingScreen(),
       home: const SplashScreen(),
       //home: const RegistrationScreencopy(),

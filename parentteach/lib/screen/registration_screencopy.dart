@@ -20,6 +20,9 @@ class _RegistrationScreencopyState extends State<RegistrationScreencopy> {
   late String location;
   late String dateOfBirth;
 
+  final TextEditingController _dateController = TextEditingController();
+
+
   final ButtonStyle myButtons = ElevatedButton.styleFrom(
     minimumSize: const Size(200, 40),
     backgroundColor: const Color.fromARGB(255, 249, 249, 207),
@@ -113,8 +116,26 @@ class _RegistrationScreencopyState extends State<RegistrationScreencopy> {
                     inputField(
                       label: 'Date of Birth',
                       hintText: 'Enter Your Date of Birth',
+                      controller: _dateController,
                       onChanged: (value) {
                         dateOfBirth = value;
+                      },
+                      onTap: () async {
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2100),
+                        );
+                        if (pickedDate != null) {
+                          setState(() {
+
+                            dateOfBirth =
+                                "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+                            _dateController.text = dateOfBirth;
+                          });
+                        }
+                        
                       },
                     ),
                     const SizedBox(height: 5),
@@ -174,13 +195,14 @@ class _RegistrationScreencopyState extends State<RegistrationScreencopy> {
       ),
     );
   }
-
+//Styling and modifying the functionalities the input fields
   Widget inputField({
     required String label,
     required String hintText,
     bool obscureText = false,
     required ValueChanged<String> onChanged,
     VoidCallback? onTap,
+    TextEditingController? controller,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -196,37 +218,45 @@ class _RegistrationScreencopyState extends State<RegistrationScreencopy> {
           height: 5,
         ),
         TextField(
+          controller: controller,
           obscureText: obscureText,
           onChanged: onChanged,
+          onTap:label == 'Date of Birth' ? onTap: null,
+          readOnly: label=='Date of Birth',//Prevents manual input hence it will have to be picked from the date picker
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: const TextStyle(
               fontStyle: FontStyle.italic,
               fontSize: 15,
-            ),
+            ),         
+            
+            //this is to create the visibility icon button
             suffixIcon: label=='Password'// Check if label is "Password"
             ?obscureText
                 ? IconButton(
                     icon: const Icon(
                       Icons.visibility,
+                      color: Color.fromARGB(255, 6, 6, 111),
                     ),
                     onPressed: onTap,
                   )
                 : IconButton(
                     icon: const Icon(
                       Icons.visibility_off,
+                      color: Color.fromARGB(255, 6, 6, 111),
                     ),
                     onPressed: onTap,
                   )
-            :null,//if it is not, it will not show the suffix icon      
+            :null,//if it is not Password, it will not show the suffix icon 
+
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(color: Colors.grey.shade400),
             ),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey.shade400),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color:Color.fromARGB(255, 6, 6, 111),),
             ),
           ),
         ),
@@ -235,3 +265,14 @@ class _RegistrationScreencopyState extends State<RegistrationScreencopy> {
     );
   }
 }
+
+// Future<void> selectDate() async{
+  
+//   await showDatePicker(
+//   context: context,
+//   initialDate: DateTime.now(), 
+//   firstDate: DateTime(1900), 
+//   lastDate: DateTime(2100)
+//   );
+//   }
+
