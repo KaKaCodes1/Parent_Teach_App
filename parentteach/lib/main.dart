@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:parentteach/screen/login_screen.dart';
+import 'package:parentteach/screen/login_screencopy.dart';
 import 'package:parentteach/screen/onboarding_screen.dart';
 import 'package:parentteach/screen/registration_screencopy.dart';
 import 'package:parentteach/screen/splash_screen.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
       //home: const OnboardingScreen(),
       home: const SplashScreen(),
       //home: const RegistrationScreencopy(),
+      //home: const LoginScreencopy()
     );
   }
 }

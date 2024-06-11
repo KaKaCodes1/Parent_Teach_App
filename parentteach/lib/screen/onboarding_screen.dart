@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';//this is a dependancy that has what I used to create the onboarding screen
-import 'package:parentteach/screen/login_screen.dart';
-import 'package:parentteach/screen/registration_screen.dart';
+//import 'package:parentteach/screen/login_screen.dart';
+import 'package:parentteach/screen/login_screencopy.dart';
+//import 'package:parentteach/screen/registration_screen.dart';
 import 'package:parentteach/screen/registration_screencopy.dart';
 //import 'package:parentteach/screen/solution_screen.dart';
 
@@ -117,7 +118,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   onPressed: () {
                   Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                  MaterialPageRoute(builder: (context) => const LoginScreencopy()),
                 );
                   },
                   style: myButtons, 

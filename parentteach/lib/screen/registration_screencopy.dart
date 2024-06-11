@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:parentteach/screen/login_screen.dart';
+//import 'package:parentteach/screen/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:parentteach/screen/login_screencopy.dart';
 
 class RegistrationScreencopy extends StatefulWidget {
   const RegistrationScreencopy({super.key});
@@ -36,7 +37,7 @@ class _RegistrationScreencopyState extends State<RegistrationScreencopy> {
         backgroundColor: const Color.fromARGB(255, 254, 230, 119),
         title: const Center(
           child: Text(
-            'Create A New Account',
+            'Create New Account',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -166,13 +167,13 @@ class _RegistrationScreencopyState extends State<RegistrationScreencopy> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text('Already have an account, '),
+                        const Text('Already have an account? '),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => LoginScreen(),
+                                builder: (context) => const LoginScreencopy(),
                               ),
                             );
                           },
