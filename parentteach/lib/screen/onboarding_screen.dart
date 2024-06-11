@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';//this is a dependancy that has what I used to create the onboarding screen
 import 'package:parentteach/screen/login_screen.dart';
 import 'package:parentteach/screen/registration_screen.dart';
+import 'package:parentteach/screen/registration_screencopy.dart';
 //import 'package:parentteach/screen/solution_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -18,9 +19,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   //These make the done button display the login and register buttons
   bool _showButtons = false;
+  bool _donePressed = false;
   void _onDone() {
     setState(() {
       _showButtons = true;
+      _donePressed = true;
     });
   }
 
@@ -134,7 +137,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   onPressed: () {
                   Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RegistrationScreen()),
+                  MaterialPageRoute(builder: (context) => const RegistrationScreencopy()),
                   );
                   }, 
                   style: myButtons, 
@@ -156,10 +159,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               
       onDone: _onDone,
               
-      //onSkip: _onSkip,
+
               
       showSkipButton: false,
-              
+      //onSkip: _onSkip,              
       // skip: const Text(
       //   'Skip',
       //   style: TextStyle(
@@ -169,7 +172,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       //   ),
       // ),
               
-      done: const Text(
+      done: _donePressed ? const SizedBox.shrink()//Hide the done button when it's pressed
+      : const Text(
         'Done',
         style: TextStyle(
           fontWeight: FontWeight.bold,
