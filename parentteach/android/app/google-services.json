@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "885509375872",
-    "project_id": "parentteach-b55ef",
-    "storage_bucket": "parentteach-b55ef.appspot.com"
+    "project_number": "359600546456",
+    "project_id": "parentteach-firebase",
+    "storage_bucket": "parentteach-firebase.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:885509375872:android:799b0b78cc61a3ad84e365",
+        "mobilesdk_app_id": "1:359600546456:android:8c1c3de2724294d1e066ed",
         "android_client_info": {
           "package_name": "com.parentteach.app"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAMgRlgsP5VUGFYQCwJted_TLNrzuLDOJQ"
+          "current_key": "AIzaSyCIAhheLRCEr2GaTwWkATMzKrNWXFjZBPo"
         }
       ],
       "services": {
