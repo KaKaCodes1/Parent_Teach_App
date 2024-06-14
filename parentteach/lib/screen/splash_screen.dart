@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
     //how long the screen will be displayed before going to another page
-    Future.delayed(const Duration(seconds: 3), (){
+    Future.delayed(const Duration(seconds: 2), (){
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => const OnboardingScreen())
       );
