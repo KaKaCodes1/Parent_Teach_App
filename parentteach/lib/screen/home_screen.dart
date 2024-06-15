@@ -1,5 +1,7 @@
+//import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:parentteach/model/articles.dart';
+import 'package:parentteach/screen/allarticles_screen.dart';
 import 'package:parentteach/screen/allsubjects_screen.dart';
 import 'package:parentteach/widgets/article_card.dart';
 import 'package:parentteach/widgets/subject_card.dart';
@@ -22,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Subject(name: 'Art', imageUrl: 'assets/images/art.gif'),
     Subject(name: 'Geography', imageUrl: 'assets/images/geo.gif'),
     Subject(name: 'History', imageUrl: 'assets/images/history.gif'),
+    Subject(name: 'Physical Education', imageUrl: 'assets/images/pe.gif'),
   ];
 
   final List<Articles> articles =[
@@ -31,12 +34,15 @@ class _HomeScreenState extends State<HomeScreen> {
     Articles(articleTitle: 'ParentTeach Updates', articleImageUrl: 'assets/images/small logo (1).png', articleDescription: "Here are our recent updates. Don't be left behind, stay in the loop. "),  
     ];
 
-  bool showAll = false; //This will help me  choose how many cards will be seen on the listview
+  bool showAllSubjects = false; //This will help me  choose how many cards will be seen on the listview
+
+  bool showAllArticles = false; //This will help me  choose how many articles will be seen on the listview
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
     backgroundColor: const Color.fromARGB(255, 254, 230, 119), 
+   
       body: ListView(
         children: [
           Padding(
@@ -81,10 +87,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 158,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: showAll ? subjects.length : 4 + 1, // 4 cards + 1 for More button
+                        itemCount: showAllSubjects ? subjects.length : 4 + 1, // 4 cards + 1 for More button
                         itemBuilder: (context, index){
                           // return SubjectCard(subject: subjects[index]);
-                          if(!showAll && index == 4){
+                          if(!showAllSubjects && index == 4){
                             return Container(
                               margin: const EdgeInsets.only(right: 15.0),
                               child: TextButton(
@@ -150,13 +156,79 @@ class _HomeScreenState extends State<HomeScreen> {
             ListView.builder(
               //shrinkWrap and NeverScrollableScrollPhysics() prevent scroll conflict
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: articles.length,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: showAllArticles ? articles.length : 2 + 1, // 2 articles + 1 for ReadMore button,
                 itemBuilder: (context, index){
-                  return ArticleCard(articles: articles[index]);
-                }
+                  if(!showAllArticles && index == 2){
+                    return Column(
+                      children: [
+                        const SizedBox(height: 10,),
+                        GestureDetector( 
+                          onTap: () {
+                            Navigator.push(
+                              context, 
+                              MaterialPageRoute(
+                                builder: (context) => AllarticlesScreen(articles: articles)
+                              )
+                            );
+                          },
+                          child: SizedBox(
+                            height: 70,
+                            width: 150,
+                            child: Image.asset(
+                              'assets/images/readmore.png',
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                          ),
+                      ],
+                    ); 
+                  }else{
+                    return ArticleCard(articles: articles[index]);
+                  }
+                }     
+
               ),
         ]
+      ),
+            //bottom navbar
+      bottomNavigationBar: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+            color: Colors.black.withOpacity(0.5),
+            blurRadius: 25,
+          )
+          ]
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(30),
+          child: BottomNavigationBar(
+            selectedItemColor: const Color.fromARGB(255, 6, 6, 111),
+            unselectedItemColor:  Colors.black,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home'
+                ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+                ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Settings',
+                ),
+          
+            ],
+            // currentIndex: _selectedIndex,
+            // selectedItemColor: const Color.fromARGB(255, 77, 149, 208),
+            // onTap:_onItemTapped,
+              
+            
+            ),
+        ),
       ),
     );
   }

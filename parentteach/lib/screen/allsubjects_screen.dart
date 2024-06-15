@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:parentteach/widgets/subject_card.dart';
 
 import '../model/subject.dart';
+import '../widgets/subject_dialog.dart';
 
 class AllsubjectsScreen extends StatelessWidget {
   final List<Subject> subjects;
@@ -44,21 +45,29 @@ class AllsubjectsScreen extends StatelessWidget {
           ),
           itemCount: subjects.length, 
         itemBuilder: (context, index){
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Material(
-              elevation: 3,
-              borderRadius: BorderRadius.circular(16.0),
-              child: ClipRRect(
+          return GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context, 
+                builder: (BuildContext context) => const SubjectDialog(),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Material(
+                elevation: 3,
                 borderRadius: BorderRadius.circular(16.0),
-                child: Image.asset(
-                  subjects[index].imageUrl,
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.cover,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: Image.asset(
+                    subjects[index].imageUrl,
+                    height: 100,
+                    width: 100,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-            ),);
+              ),),
+          );
         }
         )
     );
