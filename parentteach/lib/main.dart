@@ -5,6 +5,7 @@ import 'package:parentteach/screen/home_screen.dart';
 //import 'package:parentteach/screen/login_screen.dart';
 import 'package:parentteach/screen/login_screencopy.dart';
 import 'package:parentteach/screen/onboarding_screen.dart';
+import 'package:parentteach/screen/profile_screen.dart';
 import 'package:parentteach/screen/registration_screencopy.dart';
 import 'package:parentteach/screen/splash_screen.dart';
 //import 'firebase_options.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
       ),      
       //home: const SplashScreen(),
       home: const HomeScreen(),
-      //home: SolutionScreen(),
+      //home: ProfileScreen(),
 
     );
   }

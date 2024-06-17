@@ -27,20 +27,21 @@ class _SubjectDialogState extends State<SubjectDialog> {
         borderRadius: BorderRadius.circular(20.0),
       ),
       elevation: 5,
-      backgroundColor: Color.fromARGB(255, 232, 219, 162),
+      backgroundColor: const Color.fromARGB(255, 232, 219, 162),
       child: Container(
         padding: const EdgeInsets.all(20.0),
         decoration: BoxDecoration(
+          color:const Color.fromARGB(255, 232, 219, 162),
           borderRadius: BorderRadius.circular(20.0),
-          // boxShadow: [
-          //   BoxShadow(
-          //   color: Colors.black.withOpacity(0.5),
-          //   blurRadius: 7,
-          //   // spreadRadius: 5,
-          //   // offset: const Offset(0,3),
-          //   ),
+          boxShadow: [
+            BoxShadow(
+            color: Colors.black.withOpacity(0.5),
+            blurRadius: 7,
+            spreadRadius: 5,
+            offset: const Offset(0,3),
+            ),
 
-          // ]
+          ]
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,

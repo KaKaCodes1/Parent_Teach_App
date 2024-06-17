@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:parentteach/model/articles.dart';
 import 'package:parentteach/screen/allarticles_screen.dart';
 import 'package:parentteach/screen/allsubjects_screen.dart';
+import 'package:parentteach/screen/profile_screen.dart';
 import 'package:parentteach/widgets/article_card.dart';
 import 'package:parentteach/widgets/subject_card.dart';
 
@@ -16,6 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
   final List<Subject> subjects= [
     Subject(name: 'Math', imageUrl: 'assets/images/math.gif'),
     Subject(name: 'English', imageUrl: 'assets/images/eng.gif'),
@@ -33,6 +36,20 @@ class _HomeScreenState extends State<HomeScreen> {
     Articles(articleTitle: "Importance of Both Parents' Involvement In Their children's education", articleImageUrl: 'assets/images/onboarding1.png', articleDescription: 'See why we encourage both parents to get involved'),
     Articles(articleTitle: 'ParentTeach Updates', articleImageUrl: 'assets/images/small logo (1).png', articleDescription: "Here are our recent updates. Don't be left behind, stay in the loop. "),  
     ];
+
+    //for navigation to account
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      if (index == 1) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProfileScreen())
+        );
+      }
+    });
+  }
 
   bool showAllSubjects = false; //This will help me  choose how many cards will be seen on the listview
 
@@ -222,9 +239,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
           
             ],
-            // currentIndex: _selectedIndex,
-            // selectedItemColor: const Color.fromARGB(255, 77, 149, 208),
-            // onTap:_onItemTapped,
+            currentIndex: _selectedIndex,
+            //selectedItemColor: const Color.fromARGB(255, 77, 149, 208),
+            onTap:_onItemTapped,
               
             
             ),
