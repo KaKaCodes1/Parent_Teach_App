@@ -5,6 +5,7 @@ import 'package:parentteach/screen/allarticles_screen.dart';
 import 'package:parentteach/screen/allsubjects_screen.dart';
 import 'package:parentteach/screen/profile_screen.dart';
 import 'package:parentteach/widgets/article_card.dart';
+import 'package:parentteach/widgets/drawer_menu.dart';
 import 'package:parentteach/widgets/subject_card.dart';
 
 import '../model/subject.dart';
@@ -17,7 +18,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
+  /*A GlobalKey<ScaffoldState> is used to control the Scaffold. 
+  This key allows you to access and manipulate the state of the Scaffold, including opening and closing the drawer.*/
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final List<Subject> subjects= [
     Subject(name: 'Math', imageUrl: 'assets/images/math.gif'),
@@ -37,7 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
     Articles(articleTitle: 'ParentTeach Updates', articleImageUrl: 'assets/images/small logo (1).png', articleDescription: "Here are our recent updates. Don't be left behind, stay in the loop. "),  
     ];
 
-    //for navigation to account
+  //this is used to manage the navigation on the bottom navbar
+  int _selectedIndex = 0;
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -58,8 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+    key: _scaffoldKey,  
     backgroundColor: const Color.fromARGB(255, 254, 230, 119), 
-   
+      endDrawer: const DrawerMenu(subjects: [], articles: [],),//The drawer menu will appear on the right side
       body: ListView(
         children: [
           Padding(
@@ -74,10 +79,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 50,
                 ),
         
-                const Icon(
-                  Icons.menu, 
-                  color: Colors.black,
-                  ),
+                GestureDetector(
+                  child: const Icon(
+                    Icons.menu, 
+                    color: Colors.black,
+                    ),
+                  onTap: () {
+                     _scaffoldKey.currentState?.openEndDrawer();
+                  },  
+                ),
             ],
           ),
           ),

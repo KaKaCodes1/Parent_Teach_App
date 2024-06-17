@@ -7,7 +7,7 @@ import '../widgets/subject_dialog.dart';
 class AllsubjectsScreen extends StatelessWidget {
   final List<Subject> subjects;
 
-  const AllsubjectsScreen({Key? key, required this.subjects}) : super(key: key);
+  const AllsubjectsScreen({required this.subjects});
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ import '../widgets/article_card.dart';
 class AllarticlesScreen extends StatelessWidget {
   final List<Articles> articles;
   
-  const AllarticlesScreen({super.key, required this.articles});
+  const AllarticlesScreen({ required this.articles});
 
   
   @override
@@ -37,7 +37,7 @@ class AllarticlesScreen extends StatelessWidget {
       body: ListView.builder(
         shrinkWrap: true,
         //physics: const NeverScrollableScrollPhysics(),
-        itemCount: articles.length , // 2 articles + 1 for ReadMore button,
+        itemCount: articles.length , 
         itemBuilder: (context, index){
           return ArticleCard(articles: articles[index]);
         }
