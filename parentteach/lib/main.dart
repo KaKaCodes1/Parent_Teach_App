@@ -1,9 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:parentteach/screen/home_screen.dart';
 //import 'package:parentteach/screen/login_screen.dart';
 import 'package:parentteach/screen/login_screencopy.dart';
 import 'package:parentteach/screen/onboarding_screen.dart';
+import 'package:parentteach/screen/profile_screen.dart';
 import 'package:parentteach/screen/registration_screencopy.dart';
 import 'package:parentteach/screen/splash_screen.dart';
 //import 'firebase_options.dart';
@@ -33,10 +35,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      //home: const OnboardingScreen(),
-      home: const SplashScreen(),
-      //home: const RegistrationScreencopy(),
-      //home: const LoginScreencopy()
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 6, 6, 111),),
+      ),      
+      //home: const SplashScreen(),
+      home: const HomeScreen(),
+      //home: ProfileScreen(),
+
     );
   }
 }
