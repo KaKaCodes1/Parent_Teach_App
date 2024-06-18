@@ -4,7 +4,9 @@ import 'package:parentteach/model/articles.dart';
 import 'package:parentteach/screen/allarticles_screen.dart';
 import 'package:parentteach/screen/allsubjects_screen.dart';
 import 'package:parentteach/screen/profile_screen.dart';
+import 'package:parentteach/screen/settings_screen.dart';
 import 'package:parentteach/widgets/article_card.dart';
+import 'package:parentteach/widgets/bottom_navbar.dart';
 import 'package:parentteach/widgets/drawer_menu.dart';
 import 'package:parentteach/widgets/subject_card.dart';
 
@@ -46,12 +48,21 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _selectedIndex = index;
       if (index == 1) {
+
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProfileScreen())
+            builder: (context) => ProfileScreen(subjects: subjects, articles: articles,))
         );
       }
+      else if(index == 2){
+        
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SettingsScreen(subjects: subjects, articles: articles,))
+        );
+      }      
     });
   }
 
@@ -59,12 +70,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool showAllArticles = false; //This will help me  choose how many articles will be seen on the listview
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
     key: _scaffoldKey,  
     backgroundColor: const Color.fromARGB(255, 254, 230, 119), 
-      endDrawer: const DrawerMenu(subjects: [], articles: [],),//The drawer menu will appear on the right side
+      endDrawer: DrawerMenu(subjects: subjects, articles: articles,),//The drawer menu will appear on the right side
       body: ListView(
         children: [
           Padding(
@@ -125,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Navigator.push(
                                     context, 
                                     MaterialPageRoute(
-                                      builder: (context) => AllsubjectsScreen(subjects: subjects,)
+                                      builder: (context) => AllsubjectsScreen(subjects: subjects, articles: articles,)
                                       ),
                                       );
                                 },
@@ -190,12 +202,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     return Column(
                       children: [
                         const SizedBox(height: 10,),
-                        GestureDetector( 
-                          onTap: () {
+                        TextButton( 
+                          onPressed: () {
                             Navigator.push(
                               context, 
                               MaterialPageRoute(
-                                builder: (context) => AllarticlesScreen(articles: articles)
+                                builder: (context) => AllarticlesScreen(subjects: subjects, articles: articles,)
                               )
                             );
                           },
@@ -205,6 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Image.asset(
                               'assets/images/readmore.png',
                               fit: BoxFit.cover,
+                             
                             ),
                           )
                           ),
@@ -218,45 +231,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
         ]
       ),
-            //bottom navbar
-      bottomNavigationBar: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-            color: Colors.black.withOpacity(0.5),
-            blurRadius: 25,
-          )
-          ]
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(30),
-          child: BottomNavigationBar(
-            selectedItemColor: const Color.fromARGB(255, 6, 6, 111),
-            unselectedItemColor:  Colors.black,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home'
-                ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-                ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: 'Settings',
-                ),
-          
-            ],
-            currentIndex: _selectedIndex,
-            //selectedItemColor: const Color.fromARGB(255, 77, 149, 208),
-            onTap:_onItemTapped,
-              
-            
-            ),
-        ),
-      ),
+      
+      //bottom navbar
+      bottomNavigationBar: BottomNavbar(currentIndex: _selectedIndex, onTap: _onItemTapped,)      
+
     );
   }
 }

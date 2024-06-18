@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 // import 'package:parentteach/widgets/subject_card.dart';
-
+import 'package:parentteach/model/articles.dart';
 import '../model/subject.dart';
+import '../widgets/drawer_menu.dart';
 import '../widgets/subject_dialog.dart';
 
 class AllsubjectsScreen extends StatelessWidget {
   final List<Subject> subjects;
+  final List<Articles> articles;
 
-  const AllsubjectsScreen({required this.subjects});
+  AllsubjectsScreen({Key? key, required this.subjects, required this.articles}) : super(key: key);
+    /*A GlobalKey<ScaffoldState> is used to control the Scaffold. 
+  This key allows you to access and manipulate the state of the Scaffold, including opening and closing the drawer.*/
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: const Color.fromARGB(255, 254, 230, 119),
+      endDrawer: DrawerMenu(subjects: subjects, articles: articles,),//The drawer menu will appear on the right side
       appBar: AppBar(
         title: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -25,10 +32,10 @@ class AllsubjectsScreen extends StatelessWidget {
               ),
             ),
 
-            Icon(
-              Icons.menu, 
-              color: Colors.black,
-            ),
+            // Icon(
+            //   Icons.menu, 
+            //   color: Colors.black,
+            // ),
           ],
         ),
         backgroundColor: const Color.fromARGB(255, 254, 230, 119),
