@@ -1,15 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:parentteach/screen/home_screen.dart';
+import 'package:parentteach/screen/settings_screen.dart';
+import '../model/subject.dart';
+import 'package:parentteach/model/articles.dart';
+import '../widgets/bottom_navbar.dart';
+import '../widgets/drawer_menu.dart';
 
 class ProfileScreen extends StatefulWidget {
-  ProfileScreen({super.key});
+  final List<Subject> subjects;
+  final List<Articles> articles;
+
+ ProfileScreen({Key? key, required this.subjects, required this.articles}) : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+    /*A GlobalKey<ScaffoldState> is used to control the Scaffold. 
+  This key allows you to access and manipulate the state of the Scaffold, including opening and closing the drawer.*/
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final ButtonStyle thisbutton = ElevatedButton.styleFrom(
     minimumSize: const Size(200, 40), 
     backgroundColor: const Color.fromARGB(255, 249, 249, 207),
@@ -34,13 +47,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
             )
           );
       }
+      else if(index == 2){
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SettingsScreen(subjects: widget.subjects, articles: widget.articles,))
+        );
+      }      
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: const Color.fromARGB(255, 254, 230, 119),
+      endDrawer:  DrawerMenu(subjects: widget.subjects, articles: widget.articles),//The drawer menu will appear on the right side
       appBar: AppBar(
         title: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,10 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
 
-            Icon(
-              Icons.menu, 
-              color: Colors.black,
-            ),
+
           ],
         ),
         backgroundColor: const Color.fromARGB(255, 254, 230, 119),
@@ -104,44 +123,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     ),
-          bottomNavigationBar: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-            color: Colors.black.withOpacity(0.5),
-            blurRadius: 25,
-          )
-          ]
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(30),
-          child: BottomNavigationBar(
-            selectedItemColor: const Color.fromARGB(255, 6, 6, 111),
-            unselectedItemColor:  Colors.black,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home'
-                ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-                ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: 'Settings',
-                ),
-          
-            ],
-            currentIndex: _selectedIndex,
-            //selectedItemColor: const Color.fromARGB(255, 77, 149, 208),
-            onTap:_onItemTapped,
-              
-            
-            ),
-        ),
-      ),
+    
+    //bottom navbar
+    bottomNavigationBar: BottomNavbar(currentIndex: _selectedIndex, onTap: _onItemTapped,)      
+
     );
   }
 
