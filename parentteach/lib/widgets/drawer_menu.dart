@@ -105,7 +105,15 @@ class DrawerMenu extends StatelessWidget {
               onTap: () {
                 Navigator.pop(context); // Closes the drawer after tap
               },
-            ),                                    
+            ), 
+
+            ListTile(
+              leading: const Icon(Icons.notifications, color:  Color.fromARGB(255, 6, 6, 111),),
+              title: const Text('Notifications'),
+              onTap: () {
+                Navigator.pop(context); // Closes the drawer after tap
+              },
+            ),
         ],
       ),
     );
