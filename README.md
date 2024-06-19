@@ -16,7 +16,7 @@
  # Authors
    *Nwokedike Linus
    *Hamisi juma
-   *atthew Bethwel Tumaini Gwada
+   *Matthew Bethwel Tumaini Gwada
  
 # Acknowledgememts
    PLP
