@@ -120,7 +120,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const HomeScreen()),
+                                  builder: (context) =>
+                                      const LoginScreencopy()),
                             );
                           },
                           style: myButtons,
@@ -139,7 +140,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const HomeScreen()),
+                                    builder: (context) =>
+                                        const RegistrationScreencopy()),
                               );
                             },
                             style: myButtons,

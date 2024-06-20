@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:parentteach/screen/registration_screencopy.dart';
+import 'package:parentteach/screen/home_screen.dart'; // Assuming you have a HomeScreen widget
 
 class LoginScreencopy extends StatefulWidget {
   const LoginScreencopy({super.key});
@@ -10,8 +11,8 @@ class LoginScreencopy extends StatefulWidget {
 }
 
 class _LoginScreencopyState extends State<LoginScreencopy> {
-  bool obscureText = true; // Initially, password is obscured
-  
+  bool obscureText = true;
+
   final _auth = FirebaseAuth.instance;
   late String email;
   late String password;
@@ -38,32 +39,32 @@ class _LoginScreencopyState extends State<LoginScreencopy> {
           ),
         ),
       ),
-    body: Container(
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 254, 230, 119),
-      ),
-      child: Center(
-        child: Container(
-          
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.0),
-            color: const Color.fromARGB(255, 245, 236, 204)),
-          width: 448,
-          height: MediaQuery.of(context).size.height,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                  child: Image.asset(
-                    'assets/images/LOGO.png',
-                    width: 200,
-                    height: 200,
+      body: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 254, 230, 119),
+        ),
+        child: Center(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15.0),
+              color: const Color.fromARGB(255, 245, 236, 204),
+            ),
+            width: 448,
+            height: MediaQuery.of(context).size.height,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Image.asset(
+                      'assets/images/LOGO.png',
+                      width: 200,
+                      height: 200,
+                    ),
                   ),
-                ),
                   inputField(
                     label: 'Email',
                     hintText: 'Enter Your Email',
@@ -71,7 +72,6 @@ class _LoginScreencopyState extends State<LoginScreencopy> {
                       email = value;
                     },
                   ),
-    
                   inputField(
                     label: 'Password',
                     hintText: 'Enter Your Password',
@@ -87,22 +87,37 @@ class _LoginScreencopyState extends State<LoginScreencopy> {
                       });
                     },
                   ),
-    
                   const SizedBox(height: 5),
-    
                   ElevatedButton(
                     onPressed: () async {
                       try {
-                        final user =
-                            await _auth.signInWithEmailAndPassword(
+                        final user = await _auth.signInWithEmailAndPassword(
                           email: email,
                           password: password,
                         );
                         if (user != null) {
-                          // Navigate to the next screen
+                          //uses SnackBar for notification for successful login
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Login successful!'),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomeScreen(),
+                            ),
+                          );
                         }
                       } catch (e) {
-                        print(e);
+                        //uses snackbar to notify user if login failed
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Login failed. Please try again.'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
                       }
                     },
                     style: myButtons,
@@ -123,7 +138,8 @@ class _LoginScreencopyState extends State<LoginScreencopy> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const RegistrationScreencopy(),
+                              builder: (context) =>
+                                  const RegistrationScreencopy(),
                             ),
                           );
                         },
@@ -137,19 +153,16 @@ class _LoginScreencopyState extends State<LoginScreencopy> {
                       ),
                     ],
                   ),
-              ],
-            
+                ],
+              ),
             ),
           ),
         ),
       ),
-    ), 
     );
   }
 
-
-
-//Styling and modifying the functionalities the input fields
+  //Styling and modifying the functionalities the input fields
   Widget inputField({
     required String label,
     required String hintText,
@@ -164,9 +177,7 @@ class _LoginScreencopyState extends State<LoginScreencopy> {
         Text(
           label,
           style: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w400,
-              color: Colors.black87),
+              fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
         ),
         const SizedBox(
           height: 10,
@@ -180,27 +191,25 @@ class _LoginScreencopyState extends State<LoginScreencopy> {
             hintStyle: const TextStyle(
               fontStyle: FontStyle.italic,
               fontSize: 15,
-            ),         
-            
-            //this is to create the visibility icon button
-            suffixIcon: label=='Password'// Check if label is "Password"
-            ?obscureText
-                ? IconButton(
-                    icon: const Icon(
-                      Icons.visibility,
-                      color: Color.fromARGB(255, 6, 6, 111),
-                    ),
-                    onPressed: onTap,
-                  )
-                : IconButton(
-                    icon: const Icon(
-                      Icons.visibility_off,
-                      color: Color.fromARGB(255, 6, 6, 111),
-                    ),
-                    onPressed: onTap,
-                  )
-            :null,//if it is not Password, it will not show the suffix icon 
-
+            ),
+            // this is to create the visibility icon button
+            suffixIcon: label == 'Password' // Check if label is "Password"
+                ? obscureText
+                    ? IconButton(
+                        icon: const Icon(
+                          Icons.visibility,
+                          color: Color.fromARGB(255, 6, 6, 111),
+                        ),
+                        onPressed: onTap,
+                      )
+                    : IconButton(
+                        icon: const Icon(
+                          Icons.visibility_off,
+                          color: Color.fromARGB(255, 6, 6, 111),
+                        ),
+                        onPressed: onTap,
+                      )
+                : null, // if it is not Password, it will not show the suffix icon
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             enabledBorder: OutlineInputBorder(
@@ -208,7 +217,9 @@ class _LoginScreencopyState extends State<LoginScreencopy> {
               borderSide: BorderSide(color: Colors.grey.shade400),
             ),
             focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color:Color.fromARGB(255, 6, 6, 111),),
+              borderSide: BorderSide(
+                color: Color.fromARGB(255, 6, 6, 111),
+              ),
             ),
           ),
         ),

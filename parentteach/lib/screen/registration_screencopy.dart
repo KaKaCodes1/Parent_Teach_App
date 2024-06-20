@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:parentteach/screen/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:parentteach/screen/login_screencopy.dart';
 
@@ -11,7 +10,7 @@ class RegistrationScreencopy extends StatefulWidget {
 }
 
 class _RegistrationScreencopyState extends State<RegistrationScreencopy> {
-  bool obscureText = true; // Initially, password is obscured
+  bool obscureText = true;
 
   final _auth = FirebaseAuth.instance;
   late String email;
@@ -22,7 +21,6 @@ class _RegistrationScreencopyState extends State<RegistrationScreencopy> {
   late String dateOfBirth;
 
   final TextEditingController _dateController = TextEditingController();
-
 
   final ButtonStyle myButtons = ElevatedButton.styleFrom(
     minimumSize: const Size(200, 40),
@@ -58,7 +56,6 @@ class _RegistrationScreencopyState extends State<RegistrationScreencopy> {
                   borderRadius: BorderRadius.circular(15.0),
                   color: const Color.fromARGB(255, 245, 236, 204)),
               width: 448,
-              //height: MediaQuery.of(context).size.height,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
@@ -130,13 +127,11 @@ class _RegistrationScreencopyState extends State<RegistrationScreencopy> {
                         );
                         if (pickedDate != null) {
                           setState(() {
-
                             dateOfBirth =
                                 "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
                             _dateController.text = dateOfBirth;
                           });
                         }
-                        
                       },
                     ),
                     const SizedBox(height: 5),
@@ -149,10 +144,30 @@ class _RegistrationScreencopyState extends State<RegistrationScreencopy> {
                             password: password,
                           );
                           if (newUser != null) {
-                            // Navigate to the next screen
+                            //uses snackbar to notify user if Registration is successful
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                    'Registration successful! Please log in.'),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginScreencopy(),
+                              ),
+                            );
                           }
                         } catch (e) {
-                          print(e);
+                          //uses snackbar to notify user if Registration failed
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                  'Registration failed. Please try again.'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
                         }
                       },
                       style: myButtons,
@@ -196,7 +211,7 @@ class _RegistrationScreencopyState extends State<RegistrationScreencopy> {
       ),
     );
   }
-//Styling and modifying the functionalities the input fields
+
   Widget inputField({
     required String label,
     required String hintText,
@@ -211,9 +226,7 @@ class _RegistrationScreencopyState extends State<RegistrationScreencopy> {
         Text(
           label,
           style: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w400,
-              color: Colors.black87),
+              fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
         ),
         const SizedBox(
           height: 5,
@@ -222,34 +235,31 @@ class _RegistrationScreencopyState extends State<RegistrationScreencopy> {
           controller: controller,
           obscureText: obscureText,
           onChanged: onChanged,
-          onTap:label == 'Date of Birth' ? onTap: null,
-          readOnly: label=='Date of Birth',//Prevents manual input hence it will have to be picked from the date picker
+          onTap: label == 'Date of Birth' ? onTap : null,
+          readOnly: label == 'Date of Birth',
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle: const TextStyle(
               fontStyle: FontStyle.italic,
               fontSize: 15,
-            ),         
-            
-            //this is to create the visibility icon button
-            suffixIcon: label=='Password'// Check if label is "Password"
-            ?obscureText
-                ? IconButton(
-                    icon: const Icon(
-                      Icons.visibility,
-                      color: Color.fromARGB(255, 6, 6, 111),
-                    ),
-                    onPressed: onTap,
-                  )
-                : IconButton(
-                    icon: const Icon(
-                      Icons.visibility_off,
-                      color: Color.fromARGB(255, 6, 6, 111),
-                    ),
-                    onPressed: onTap,
-                  )
-            :null,//if it is not Password, it will not show the suffix icon 
-
+            ),
+            suffixIcon: label == 'Password'
+                ? obscureText
+                    ? IconButton(
+                        icon: const Icon(
+                          Icons.visibility,
+                          color: Color.fromARGB(255, 6, 6, 111),
+                        ),
+                        onPressed: onTap,
+                      )
+                    : IconButton(
+                        icon: const Icon(
+                          Icons.visibility_off,
+                          color: Color.fromARGB(255, 6, 6, 111),
+                        ),
+                        onPressed: onTap,
+                      )
+                : null,
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             enabledBorder: OutlineInputBorder(
@@ -257,7 +267,9 @@ class _RegistrationScreencopyState extends State<RegistrationScreencopy> {
               borderSide: BorderSide(color: Colors.grey.shade400),
             ),
             focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color:Color.fromARGB(255, 6, 6, 111),),
+              borderSide: BorderSide(
+                color: Color.fromARGB(255, 6, 6, 111),
+              ),
             ),
           ),
         ),
@@ -266,14 +278,3 @@ class _RegistrationScreencopyState extends State<RegistrationScreencopy> {
     );
   }
 }
-
-// Future<void> selectDate() async{
-  
-//   await showDatePicker(
-//   context: context,
-//   initialDate: DateTime.now(), 
-//   firstDate: DateTime(1900), 
-//   lastDate: DateTime(2100)
-//   );
-//   }
-
