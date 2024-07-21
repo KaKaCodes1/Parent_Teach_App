@@ -157,7 +157,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         (Route<dynamic> route) => false, // This removes all previous routes
                         );
                     }, 
-                    icon: const Icon(Icons.edit, color: Color.fromARGB(255, 6, 6, 111),),
+                    //icon: const Icon(Icons.edit, color: Color.fromARGB(255, 6, 6, 111),),
                     label: const Text(
                       'Log Out!',
                       style: TextStyle(
